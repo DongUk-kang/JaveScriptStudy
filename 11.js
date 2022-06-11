@@ -72,4 +72,55 @@
 
  //원시 값인 문자열이 객체처럼 동작
  console.log(str.length); // 6
- console.log(str.toUpperCase()); //string
+ console.log(str.toUpperCase()); //STRING
+
+ // 11.5
+ var str = 'string';
+
+/**
+ * 문자열은 유사 배열이므로 배열과 유사하게 인덱스를 사용해 각 문자에 접근 할 수 있음
+ * 하지만 문자열은 원시값 이므로 변경할 수 없다. 이때 에러가 발생안됨
+ */
+
+str[0] = 'S';
+console.log(str); // string
+
+/**
+ * str[0] = 'S' 처럼 이미 생성된 문자열의 일부문자를 변경해도 반영되지 않음
+ * 문자열은 변경 불가능한값이기떄문에
+ * 이처럼 한번 생성된 문자열을 읽기 전용값으로서 변경할수 없음
+ * 원시값은 어떤일이 있어도 불변하기때문에 데이터의 신뢰서응ㄹ 보장함
+ * 
+ * 그러나 변수에 새로운 문자열을 재할당하는 것은 물론 가능
+ * 기존 문자열을 변경하는것이 아니라 새로운 문자열을 새롭게 할당하는것이기 때문에
+ */
+
+// 11.6
+var score = 80;
+var copy = score;
+
+console.log(score); // 80
+console.log(copy); // 80
+
+score = 100;
+
+console.log(score); // 100
+console.log(copy); // 80
+
+/**
+ * score 변수에 숫자값 80을 할당
+ * copy변수에 score 변수를 할당
+ * 그 후 score 변수에 새로운 숫자 값 100을 재할당할경우
+ * copy = score에서 score는 변수 값 80으로 평가되여 copy 변수에도 80이 할당될것
+ * 변수에 원시 값을 갖는 변수를 할당하면 할당받는 변수(copy)에는 할당되는 변수 (score)의 원시값이 복사되어 전달됨
+ * 값에의한전달이라하고함
+ * 
+ * copy 변수에 원시값을 갖는 score변수를 할당하면 할당받는 변수 copy에는 할당되는 변수 score의 원시 값 80이 복사됨
+ */
+
+// 11.7
+var score = 80;
+
+var copy = score;
+console.log(score, copy); // 80 80
+console.log(score === copy); // true

@@ -226,3 +226,41 @@ var person = {
 };
 //참조 값을 복사(얕은복사)
 var copy = person;
+
+//11 - 17
+
+var persone = {
+    name: 'Lee'
+};
+
+// 참조 값을 복사(얕은복사). copy 와 person은 동일한 참조 값을가지고있음
+var copy = person;
+
+//copy와 person은 동일한 객체를 참조
+console.log(copy === person); //true
+
+// copy를 통해 객체를 변경
+copy.name = 'Kim';
+
+//person을 통해 객체 변경
+person.address = 'Seoul';
+
+/**
+ * copy와 person은 동일한 객체를 가르킴
+ * 어느한쪽에서 객체를변경하면 서로 영향을 주고 받음
+ */
+
+console.log(person); // {name: 'Kim', address: 'Seoul'}
+console.log(copy); // {name: "Kim", address: "Seoul"}
+
+// 11-18
+var person1 = {
+    name: "Lee"
+};
+
+var person2 = {
+    name: "Lee"
+};
+
+console.log(person1 === person2); 
+console.log(person1.name === person2.name); 

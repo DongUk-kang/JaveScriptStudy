@@ -124,3 +124,93 @@ var score = 80;
 var copy = score;
 console.log(score, copy); // 80 80
 console.log(score === copy); // true
+
+//11.8 
+var score = 80;
+//copy 변수이는 score 변수의 값 80이 복사되어 할당
+var copy = score;
+console.log(score, copy); // 80 80
+console.log(score === copy); // true
+
+/**
+ * score 변수와 copy 변수의 값은 다른 메모리 공간에 저장된 별개의 값
+ * score 변수의 값을 변경해도 copy 변수의 값에는 어떠한 영향x
+ */
+score = 100;
+console.log(score, copy); // 100 , 80
+console.log(score === copy); // false
+
+// score 변수와 copy 변수값 80은 다른 메모리 공간에 저장된 별개의 값을 주의
+// score 변수의값을 변경해도 copy 변수의 값에는 어떠한 영향도 주지않음
+
+//11.9
+var x = 10;
+
+//11.10
+var copy = score;
+
+// 11-11
+var person = {
+    name: 'Lee'
+};
+
+//11-12
+var person = {
+    name: 'Lee'
+};
+
+//person 변수에 저장되어있는 참조 값으로 실제 객체에 접근
+console.log(person); // {name: "Lee"}
+
+//11.13
+var person = {
+    name: "Lee"
+};
+//프로퍼티값 갱신
+person.name = 'Kim';
+//프로퍼티 동적 생성
+person.address = 'Seoul';
+console.log(person); // {name: 'Kim', address: 'Seoul'}
+
+//shallow copy, deep copy
+/**
+ * 객체를 프로퍼티 ㄱ밧으로 갖는 객체의 경우 얕은 복사는 한단계까지만 복사하는 것
+ * 깊은 복사는 객체에 중첩되어있는 객체까지 모두 복사하는것
+ */
+
+const o = { x: { y: 1} };
+
+//shallow copy
+// const c1 = { ...o }; 
+// console.log(c1 === o); // false 
+// console.log(c1.x === o.x ); // true
+
+//lodash의 cloneDeep을 사용한 깊은 복사
+// npm i loadsh 설치 후 사용가능
+
+// const _ = require('lodash');
+// 깊은 복사
+// const c2 = _.cloneDeep(o);
+// console.log(c2 === o); // false
+// console.log(c2.x === o.x); // false 
+/**
+ * 얖은 복사와 깊은 복사로 생성된 객체는 원본과는 다른 객체
+ * 원본과 복사본은 참조 값이 다른 별개의 객체
+ * 얕은 복사는 객체에 중첩되어있는 객체의 경우 참조 값을 복사하고 깊은 복사는 객체에 중첩되어있는
+ * 객체까지 모두 복사해서 원시값처럼 완전한 복사본을 만드는 차이가있음
+ * 
+ * 원시값을 할당한 변수를다른 변수에 할당하는 것을 깊은복사
+ * 객체를 할당한 변수를 다른 변수에 할당하는것을 얕은 복사
+ */
+
+
+// 11-15
+const v = 1;
+//깊은 복사
+const c1 = v;
+console.log(c1 === v); //true
+
+const o = { x: 1};
+//얕은복사
+const c2 = o;
+console.log(c2 === o); //true

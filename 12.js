@@ -555,3 +555,36 @@ console.log(multiply(3, 5)); // 15
  * 반환문인 return 키워드 뒤에 오는 표현식을 평가해 반환
  * return키워드 뒤에 반환값으로 사용할 표현식을 명시적으로 지정하지 않으면 undefuned가 반환
  */
+
+// 12 - 29
+function foo() {
+    return;
+}
+
+console.log(foo()); // undefined
+//반환문은 생략가능 함수는 함수 몸체의 마지막문까지 실행한 후 암묵적으로 undefined를 반환
+
+// 12 - 30
+function foo() {
+    //반환문을 생략하면 암묵적으로 undefined가 반환
+}
+console.log(foo());
+
+/**
+ * return 키워드와 반환값으로 사용할 표현식 사이에 줄바꿈이 있으면 세미콜론 자동 사입기능에 의해
+ * 세미콜론이 추가되어 다음과 같이 의도치 않은 결과가 발생할 수 있음
+ */
+
+// 12 - 31
+function multiply(x, y) {
+    //return 키워드와 반환값 사이에 줄바꿈이 있으면 자동삽입됨
+    return
+    x * y;
+}
+console.log(multiply(3, 5));
+
+/**
+ * 반환문은 함수 몸체 내부에서만 사용할 수 있음
+ * 전역에서 반환문을 사용할 경우 문법에러가 발생
+ */
+

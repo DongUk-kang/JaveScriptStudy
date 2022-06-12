@@ -698,3 +698,46 @@ res = (function (a, b) {
 console.log(res);
 
 
+/**
+ * 12.7.2 재귀함수
+ * 
+ * 함수가 자기 자신을 호출하는것을 재귀호출이라고함
+ * 재귀함수는 자기 자신을 호출하는 행위
+ */
+
+// 12 - 43
+function countdown(n) {
+    for (var i = n; i >= 0; i--) console.log(i)
+}
+countdown(10);
+
+// 12 - 44
+function countdown(n) {
+    if (n < 0) return;
+    console.log(n);
+    countdown(n - 1); // 재기 호출
+}
+countdown(10);
+
+//자기 자신을 호출하는 재귀함수를 사용하면 반복문없이 구현 가능
+
+
+// 12 - 45 
+/**
+ * 팩토리얼은 1부터 자신까지의 모든양의 정수의 곱
+ * n! = 1 * 2 * ... * (n - 1) * n
+ */
+
+function factorial(n) {
+    //탈출조건 : n이 1이하일때 재귀 호출을 멈춤
+    if ( n <= 1) return 1;
+    //재귀호출
+    return n * factorial(n - 1);
+}
+
+console.log(factorial(0))
+console.log(factorial(1))
+console.log(factorial(2))
+console.log(factorial(3))
+console.log(factorial(4))
+console.log(factorial(5))

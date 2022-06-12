@@ -439,3 +439,35 @@ add(2, 5, 10);
  * arguments 객체는 함수를 정의할때 매겨변수를 개수를 확정할 수 없는 가변 인자 함수를 구현할때
  * 유용하게 사용됨
  */
+
+// 12 - 21
+function add(x, y) {
+    return x + y
+}
+
+//어떤 타입의 인수를 전달해야하는지 어떤 타입의 값을 반환하는지 명확하지 않음
+
+// 12 - 22
+function add(x, y) {
+    return x + y;
+}
+
+console.log(add(2)); // NaN
+console.log(add('a', 'b')); 'ab'
+
+/**
+ * 위코드는 js문법상 문제가 없어 실행됨
+ * js 함수는 매개 변수와 인ㅅ]의 개수가 일치하지 않는지 확인하지 않음
+ * js는 동적타입언어이므로 함수는 매개변수의 타입을 사전에 지정할수 없음
+ */
+
+// 12 - 23
+function add(x, y) {
+    if (typeof x !== 'number' || typeof y !== 'number') {
+        throw new TypeError('인수는 모두 숫자 값이여야합니다')
+    }
+    return x + y;
+}
+
+console.log(add(2)); // 에러발생
+console.log(add('a', 'b')) // 에러발생

@@ -333,3 +333,39 @@ var sub = function (x ,y) {
     return x - y;
 }
 
+//12.4.4
+/**
+ * js가 기본 제공하는 빌트인 함수인 Function 생성자 함수에는 매개변수 목록과 함수 몸체를 문자열로 전달하면서
+ * new  연산자와 함꼐 호출하면 함수객체를 생성해서 반환
+ * 
+ * new 연산자없이 호출해도 결과는동일
+ */
+
+//12 - 13
+var add = new Function('x', 'y', 'return x + y');
+console.log(add(2, 5));
+
+/**
+ * Function 생성자 함수로 함수를 생성하는 방식은 일반적이지 않으며, 바람직하지도 않음
+ * 
+ * Function 생성한 함수는 클로저를 생성하지 않는 등 함수 선언문이나 함수표현식으로 생성한 함수와 다르게 작동함
+ */
+
+// 12 - 14
+
+var add1 = (function () {
+    var a = 10;
+    return function (x, y) {
+        return x + y + a;
+    };
+}());
+
+console.log(add1(1, 2)); // 13
+
+var add2 = (function () {
+    var a = 10;
+    return new Function('x', 'y', 'return x + y + a;');
+}());
+
+console.log(add2(1, 2)); // 레퍼런스 에러발생
+

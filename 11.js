@@ -264,3 +264,14 @@ var person2 = {
 
 console.log(person1 === person2); 
 console.log(person1.name === person2.name); 
+
+
+
+const KEY_NAME = 'alphabet';
+
+const student = {
+    ['first-student']: 'soobin',
+    'second-student': 'dongwook',
+    [KEY_NAME]: 'aaa',
+    age: 20
+}

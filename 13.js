@@ -127,3 +127,35 @@ function bar() {
     // let x = 2; // 문법에러 발생
 }
 bar();
+
+
+// 13.2 스코프의 종류
+/**
+ * 코드는 전역과 지역으로 구분할 수 있음
+ * 이때 변수는 자신이 선언된 위치(전역 또는 지역)에 의해 자신이 유효한 범위인 스코프가 결정됨
+ * 즉, 전역에서 선언된 변수는 전역 스코프를 갖는 전역 변수이고, 지역에서 선언된 변수는 지역 스코프를 갖는 지역 변수임
+ */
+
+// 13.2.1 전역과 전역 스코프
+var x = "global x";
+var y = "global y";
+function outer() {
+    var z = "outer's local z";
+
+    console.log(x); // global x
+    console.log(y); // global y
+    console.log(z); // outer's local z
+
+    function inner() {
+        var x = "inner's local x";
+        
+        console.log(x); // inner's local x
+        console.log(y); // global y
+        console.log(z); // outer's local z
+    }
+    inner();
+}
+outer();
+
+console.log(x);
+console.log(y);

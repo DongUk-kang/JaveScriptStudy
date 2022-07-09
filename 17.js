@@ -389,3 +389,59 @@ function foo() {
  * 결론적으로 함수객체는 callable 이면서constructor 이거나 callable 이면서 non-constructor다
  * 모든 함수 객체는 호출할 수 있지만, 모든 함수 객체를 생성자 함수로서 호출할 수 있는것은 아님
  *  */
+
+
+
+
+/**
+ * 17.2.5 constructor 와 non-constructor의 구분
+ * js엔진이 어떻케 constructor와 non-constructor을 구분하는 방법
+ * 
+ * js엔진은 함수 정의를 평가하여 함수 객체를 생성할 때 함수 정의 방식에 따라 함수를 constructor와  non-constructor로 구분
+ * 
+ * constructor: 함수선언문, 함수표현식, 클래스
+ * 
+ * non-constructor: 메서드(es6메서드 축약 표현), 화살표 함수
+ * 
+ */
+
+// 17 - 15 
+
+//일반 함수 정의: 험수 선언문, 함수 표현식
+function foo() {}
+const bar = function () {};
+//프로퍼티 x의 값으로 할당된 것은 일반 함수로 정의된 함수다. 이는 메서드로 인정하지 않음
+const baz = {
+    x: function() {}
+};
+//일반 함수로 정의된 함수만이 constructor다.
+new foo(); // > foo {}
+new bar(); // > bar {}
+new baz.x(); // > x {}
+
+// 화살표 함수 정의
+const arrow = () => {};
+
+new arrow(); // 타입에러 발생
+
+//메서드 정의: es6의 메서드 축약 표현만 메서드로 인정함
+const obj1 = {
+    x() {}
+};
+new obj1.x(); // 타입에러 발생
+
+
+/**
+ * 함수를 프로퍼티 값으로 사용하면 일반적으로 메서드로 통칭함
+ * 하진만 ecmascript 사양에서 메서드란 es6의 메서드 축약 표현만을 의마함
+ * 
+ * 함수가 어디에 할당되어 있는지에 따라 메서드인지를 판단하는것이 아니라 함수 정의 방식에 따라 constructor와 non-constructor를 구분함
+ * 
+ * 함수를 일반 함수로서 호출하면 함수 객체의 내부 메서드 [[Call]]이 호출되고 new 연산자와 함께 생성자함수로서
+ * 호출하면 내부 메서드 [[constructor]]가 호출됨
+ * non-constructor인 함수 객체는 내부 메서드 [[constructor]]를 갖지않음
+ * 
+ * 따라서 non-constructor인 함수 객체를 생성자 함수로서 호출하면 에러가 발생함
+ */
+
+

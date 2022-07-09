@@ -362,3 +362,30 @@ foo.method(); // 10
  * 함수가 일반 함수로서 호출되면 함수 객체의 내부 메서드 [[Call]]이 호출되고 new 연산자와 함께 생성자가 함수로서 호출되면 내부메서드[[Construct]]가 호출됨
  */
 
+// 17 - 14 
+function foo() {
+    //일반적으로 함수로서 호출 [[Call]]이 호출됨
+    foo();
+
+    // 생성자 함수로서 호출 [[Construct]]가 호출
+    new foo();
+}
+
+/**
+ * 내부 메서드 [[Call]]을 갖는 함수 객체를 callable이라 하며, 내부 메서드 [[Construct]]를 함수객체를 constructor, [[Construct]]를 갖지 않는 함수객체를
+ * non-constructor 라고 부름
+ * 
+ * callable은 호출할 수 있는 객체 
+ * 즉 함수를 말하며, constructor는 생성자 함수로서 호출할 수 있는 함수, non-constructor는 객체를 생성자 함수로서 호출할수 없는 함수를 의미
+ * 
+ * 호출할 수 없는 객체는 함수 객체가 아니므로 함수로서 기능하는 객체
+ * 즉 함수 객체는 반드시 callable이어야함
+ * 
+ * 따라서 모든 함수 객체는 내부 메서드[[Call]]을 갖고 있으므로 호출할수 있음
+ * 
+ * 모든 함수 객체가  [[Construct]]를 갖는 것은 아님
+ * 함수객체는 constructor일 수도 있고 non-constructor일수도있음
+ * 
+ * 결론적으로 함수객체는 callable 이면서constructor 이거나 callable 이면서 non-constructor다
+ * 모든 함수 객체는 호출할 수 있지만, 모든 함수 객체를 생성자 함수로서 호출할 수 있는것은 아님
+ *  */

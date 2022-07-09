@@ -298,4 +298,38 @@ console.log(person);
 
 //Object.defineProperty 메서드로 프로퍼티를 정의할때 프로퍼티 디스크립터 객체의 프로퍼티를 일부 생략가능
 // 프로퍼티 디스크립터 객체에서 생략된 어트리뷰트는 다음과 같이 기본값 제공됨
+//Object.definedProperty 메서더는 한번에 하나의 프로퍼티만 정의할수 있음
+//Object.defineProperties 메서드를 사용하면 여러개의 프로퍼티를 한번에 정의 가능
 
+// 16 - 09 
+
+const peoples = {};
+Object.defineProperties(peoples, {
+    firstName: {
+        value: 'Mee',
+        writable: true,
+        enumerable: true,
+        configurable: true
+    },
+    lastName: {
+        value: 'Lee',
+        writable: true,
+        enumerable: true,
+        configurable: true
+    },
+    //접근자 프로퍼티 정의
+    fullName: {
+        //getter 함수
+        get() {
+            return `${this.firstName}, ${this.lastName}`;
+        },
+        //setter 함수
+        set(name) {
+            [this.firstName, this.lastName] = name.split(' ');
+        },
+        enumerable: true,
+        configurable: true
+    }
+});
+peoples.fullName = 'Mee Lee';
+console.log(peoples);

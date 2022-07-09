@@ -58,3 +58,54 @@ const person = {
 person.age = 20;
 console.log(Object.getOwnPropertyDescriptor(person));
 
+
+
+/**
+ * 16 - 03 데이터프로퍼티와 접근자 프로퍼티
+ * 
+ * 프로퍼티는 데이터 프로퍼티와 접근자 프로퍼티로 구분가능
+ * 
+ * 데이터 프로퍼티
+ * 키와 값으로 구성된 일반적인 프로퍼티. 지금까지 살펴본 모든 프로퍼티는 데이터 프로퍼티임
+ * 
+ * 접근자 프로퍼티
+ * 자체적으로는 값을 갖지 않고 다른 데이터프로퍼티의 값을 읽거나 저장할떄 호출되는 접근자 함수로 구성된 프로퍼티임
+ * 
+ * 16.3.1  데이터 프로퍼티
+ * 
+ * 데이터 프로퍼티느느 다음과 같은 프로퍼티 어트리뷰트를 갖는다
+ * 이 프로퍼티 어트리뷰트는 js엔진이 프로퍼티를 생성할때 기본값으로 자동 정의
+ * 
+ * [[Value]] < 프로퍼티 어트리뷰트 // value < 프로퍼티 디스크립터객체의프로퍼티 // 설명 프로퍼티키를 통해 프로퍼티 값에 접근하면 반한되는 값 // 프로퍼티 키를 통해 프로퍼티 값을 변경하면[[Value]에 값을 재할당함 이때 프로퍼티가 없으면 프로퍼티를 동적 생성하고 생성된 프로퍼티의 [[Value]]에 값을 저장함
+ * 
+ * [[Writable]] < 프로퍼티 어트리뷰트 // writable < 프로퍼티디스크립터객체의 프로퍼티 
+ * 설명: 프로퍼티 값의 변경 가능 여부를 나타내며 불리언 값을 갖음
+ * [[Writable]]의 값이 false인 경우 해당 프로퍼티의 [[Value]]의값을 변경할 수 없는 읽기 전용이됨
+ * 
+ * 
+ * [[Enumerable]] , enumerable
+ * 프로퍼티의 열거 가능 여부를 나타내며 불리언 값을 갖음 
+ * [[Enumerable]]의 값이 false인 경우 해당 프로퍼티는 for ... in 문이나 Object.keys 메서드등으로 열거 할 수 있음
+ * 
+ * [[Configurable]] Configurable
+ * 프로퍼티의 재정의 가능 여부를 나타내며 불리언 값을 갖는다 
+ * * */
+
+//16.04
+const human = {
+    name: "Kang"
+};
+console.log(Object.getOwnPropertyDescriptor(human, 'name'));;
+/**
+ * Object.getOwnPropertyDescriptor 메서드가 반환한 프로퍼티 디스크립터 객체를 살펴보면 value프로퍼티의 값은 'kang'
+ * 이것은 프로퍼티 어트리뷰트의 값이 'kang'인것을 의미함
+ * 
+ * 그리고 writable,enumerable, configurable 프로퍼티의 값은 모두 true
+ * 
+ * 이것은 프로퍼티느 어트리뷰트 [[Value]], [[Writable]], [[Enumerable]] 값이 모두 true인것을 의마함
+ * 
+ * 이처럼 프로퍼티가 생설될때 [[value]]의 깂은 프로퍼티 값으로 초기화되며 [[Writable]], [[Enumerable]], [[Configurable]]의 값은 true로 초기화함
+ * 프로피트를 동적추가해도 동일함
+ * 
+ * */
+

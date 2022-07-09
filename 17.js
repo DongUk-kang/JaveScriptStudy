@@ -138,4 +138,45 @@ const circle4 = new Circle(10);
 console.log(circle3.getDiameter())
 console.log(circle4.getDiameter());
 
+/**
+ * this
+ * 
+ * this는 객체 자신의 프로퍼티나 메서드를 참조하기 위한 자기 참조 변수다
+ * this가 가리키는 값, 즉 this 바인딩은 함수 호출 방식에 따라 동적으로 결정됨
+ */
+
+// 17 - 05 
+// 함수는 다양한 방식으로 호출됨
+function foo() {
+    console.log(this);
+}
+
+//일반적인 함수로서 호출
+//전역 객체는 브라우저 환경에서는 window, Node.js 환경에서는 globaldmf rkfmzla
+foo(); // window
+const obj = { foo } // es6 프로퍼티 축약표현
+
+//메서드로서 호출
+obj.foo(); // obj
+
+//생성자 함수로서 호출
+const inst = new foo(); // inst
+
+/**
+ * 생성자 함수는 이름 그대로 객체를 생성하는 함수
+ * 하지만 자바와 같은 클래스 기반 객체지향언어의 생성자와는 다르게 그 형식이 정해져 있는것이 아니라, 일반 함수와 동일한 방법으로 생성자 함수를 정의하고
+ * new연산자와 함께 호출하면 해당 함수는 생성자 함수로 동작함
+ * 
+ * 만약 new연산자와 함께 생성자 함수를 호출하지 않으면 생상자 함수가 아니라 일반함수로 동작함
+ */
+
+// 17 - 06 
+// new 연산자와 함꼐 호출하지 않으면 생성자 함수로 동작하지 않음
+// 즉, 일반 함수로써 호출되
+const circle5 = Circle(15);
+
+// 일반 함수로서 호출된 Circle은 반환문이 없으므로 암묵적으로 undefined를 반환함
+
+//일반 함수로서 호출된 Circle 내의 this는 전역 객체를 가리킴
+console.log(radius);
 

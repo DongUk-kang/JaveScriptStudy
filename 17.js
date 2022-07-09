@@ -521,3 +521,63 @@ circle10.getDiameter(); // 타입에러
  * 하지만 Circle 함수를 일반적인 함수로서 호출하면 함수 내부의 this는 전역객체 window를 가르킴
  */
 
+// 17.2.7 new.target
+
+/**
+ * 생성자 함수가 new 연산자 없이 호출되는것을 방지하기 위해 파스칼 케이스 컨벤션을 사용한다 하더라도
+ * 실수는 생김 이러한 위험서응ㄹ 회피하기 위해 es6에서 new.target을 지원
+ */
+
+//17 - 19
+//생성자 함수
+function Circle(radius) {
+    // 이 함수가 new 연산자와 함께 호출되지 않았다면 new.target은 undefiend다
+    if (!new.target) {
+        //new 연산자와 함께생성자 함수를 재귀 호출하여 생성된 인스턴스를 반환
+        return new Circle(radius);
+    }
+
+    this.radius = radius;
+    this.getDiameter = function () {
+        return 2 * this.radiusl
+    };
+}
+
+// new 연산자 없이 생성자 함수를 호출하여도 new. target을 통해 생성자 함수로 호출됨
+const circle = Circle(5);
+console.log(circle.getDiameter());
+
+/**
+ * new.target은 es6에서 도입한 최신 문법으로 ie에서는 지원하지않음
+ * new.targe을 사용할 수 없는 상황이라면 스코프 세이프 생성자 패턴을 사용할 수 있음
+ * 
+ * 
+ */
+
+// 17 - 20
+// Scope - Safe Constructor Pattern
+function Circle(radius) {
+    /**
+     * 생성자 함수가 new 연산자와 함께 호출되면 함수의 선두에서 빈 객체를 생성하고
+     * this에 바인딩함 이때 this와 Circle은 프로토 타입에 의해 연결됨
+     * 
+     * 이함수가 new 연산자와 함께 호출되지 않았더라면 이 시점의 this는 전역객체 window를 가르킴
+     * 즉, this와 Circle은 프로토 타입에 의해 연괼되지 않음
+     */
+    if (!(this instanceof Circle)) {
+        return new Circle(radius);
+    }
+
+    this.radius = radius;
+    this.getDiameter = function () {
+        return 2 * this.radius;
+    };
+}
+
+//  new 연산자 없이 생성자 함수를 호출하여도 생성자 함수로서 호출됨
+const circle11 = Circle(5);
+console.log(circle.getDiameter()); // 10
+
+/**
+ * new 연산자와 함꼐 생성자 함수에 의해 생성된 객체는 프로포타입에 의해 생성자 함수와 연결된다
+ */

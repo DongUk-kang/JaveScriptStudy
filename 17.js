@@ -281,3 +281,24 @@ const circle7 = new Circle(1);
 console.log(circle7);
 
 //만약 this가 아닌 객체를 명시적으로 반환하면 this가 반환되지 못하고 return문에 명시한 객체가 반환됨
+
+// 17 - 11
+function Circlr(radius) {
+    //1. 암묵적으로 인스턴스가 생성되고 this에 바인딩됨
+
+    //2. this에 바인딩되어 잇는 인스턴스를 초기화됨
+    this.radius = radius;
+    this.getDiameter = function () {
+        return 2 * this.radius;
+    };
+
+    //3. 암묵적으로 this를 반환함
+    //명시적으로 객체를 반홚아면 암묵적인 this 반환인 무시됨
+    return {};
+}
+
+// 인스턴스 생성 Circle 생성자 함수는 명시적으로 반환한 객체를 반환
+const circle8 = new Circle(1);
+console.log(circle8);
+
+// 명시적으로 원시 값을 반환하면 원시 값 반환은 무시되고 암묵적으로 this가 반환됨

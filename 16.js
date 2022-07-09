@@ -33,8 +33,28 @@ o.__proto__ // > object.prototype
  */
 
 // 16. 2
+// // const person = {
+// //     name: "Lee"
+// };
+//프로퍼티 어트리뷰트 정보를 제공하는 프로퍼트 디스크립터 개체를 반환함
+console.log(Object.getOwnPropertyDescriptor(person, 'name'));
+
+/**
+ * getOwnPropertyDescriptor 메서드를 호출할때 첫번째 매개변수에는 객체의 참조를 전달하고
+ * 두번째 매개변수에는 프로퍼티 키를 문자열로 전달함
+ * 이때 getOwnPropertyDescriptor 메서드는 포르퍼티 어트리뷰트 정보를 제공하는 프로퍼티 디스크립터 객체를 반환함
+ * 
+ * 만약 존재하지 않는 프로퍼티나 상속받은 프로퍼티에 대한 프로퍼티 디스크립터를 요구하면 undefined가 반환됨
+ * 
+ * Object.getOwnPropertyDescriptor 메서드는 하나의 프로퍼티에 대해 프로퍼티 디스크럽터 객체를 반환하지만 es8에서 도입된 Object.getOwnPropertyDescriptor메서드는 
+ * 모든 프러퍼티의 프로퍼티 어트리뷰트 정보를 제공하는 프로퍼티 디스크립터 객체들을 반환하
+ */
+
+// 16.3 
 const person = {
     name: "Lee"
 };
-//프로퍼티 어트리뷰트 정보를 제공하는 프로퍼트 디스크립터 개체를 반환함
-console.log(Object.getOwnPropertyDescriptor(person, 'name'));
+
+person.age = 20;
+console.log(Object.getOwnPropertyDescriptor(person));
+

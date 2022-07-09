@@ -113,3 +113,29 @@ console.log(circle2.getDiameter()) // 20
  * 
  * 객체 리터럴에 의해 객체를 생성하는 경우 프로퍼티 구조가 동일함에도 불구하고 매번 같은 프로퍼티와 메서드를 기술해야함
  */
+
+
+/**
+ * 17.2.2 생성자 함수에 이한 객체 생성 방식의 장점
+ * 
+ * 생성자 함수에 의한 객체 생성 방식은 마치 객체를 생성하기 위한 템플릿처럼 생성자 함수를 사용하여 프로퍼티 구조가 동일한 객체 여러개를 간편하게 생성
+ */
+
+// 17 - 04
+// 생성자 함수
+function Circle(radius) {
+    //생성자 함수 내부의 this는 생성자 함수가 생성할 인스턴트를 가르킴
+    this.radius = radius;
+    this.getDiameter = function() {
+        return 2 * this.radius;
+    };
+}
+
+//인스턴스의 생성
+const circle3 = new Circle(5); 
+const circle4 = new Circle(10);
+
+console.log(circle3.getDiameter())
+console.log(circle4.getDiameter());
+
+

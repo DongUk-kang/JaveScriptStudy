@@ -333,3 +333,48 @@ Object.defineProperties(peoples, {
 });
 peoples.fullName = 'Mee Lee';
 console.log(peoples);
+
+
+//16.5 객체 변경 방지
+/**
+ * 객체는 변경 가능한 값이므로 재할당 없이 직접 변경 가능
+ * 즉, 프로퍼티를 추가하거나 삭제할 수 있고, 프로퍼티 값을 갱신할 수 있으며, Object.defineProperty 또는 Object.defineProperties 메서드를 사용하여 프로퍼티 어트리뷰트를 재정의 할 수 도 있음
+ * 
+ * js는 객체의 변경을 방지하는 다양한 메서드를 제공함
+ * 객체 변경 방지 메서드들을 객체의 변경을 금지하는 강도가 다름
+ * 
+ * 
+ * 16.5.1
+ * Object.perventExtensions 메서드는 객체의 확장을 금지
+ * 객체 확장 금지란 프로퍼티 추가 금지를 의미함
+ * 즉, 확장이 금지된 객체는 프로퍼티 추가가 금지
+ * 프로퍼티는 프로퍼티 동적 추가와 Object.defineProperty 메서드로 추가할수 있음
+ * 이 두가지 추가 방법이 모두 금지됨
+ * 
+ * 확장 가능한 객체인지 여부는 Object.isExtensible 메서드로 확인 가능
+ */
+
+// 16 - 10
+const person = { name: 'Lee' };
+
+//person 객체는 확징이 금되진 객체가 아님
+console.log(Object.isExtensible(person)); // true
+
+//person 객체의 확장을 금지하여 프로퍼티 추가를 금지함
+Object.preventExtensions(person);
+
+//person 객체는 확장이 금지된 객체
+console.log(Object.isExtensible(person)); //false
+
+// 프로퍼티 추가가 금지됨
+person.age = 20; // 무시하지만 strict mode에서는 에러 발생됨
+console.log(person); // {name: "Lee"}
+
+// 프로퍼티 추가는 금지되지만 삭제는 가능함
+delete person.name;
+console.log(person); // {}
+
+
+// 프로퍼티 정의에 의한 프로퍼티 추가도 금지됨
+// Object.defineProperty(person, 'age', { value: 20 });
+// 타입에러 발생됨

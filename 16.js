@@ -378,3 +378,45 @@ console.log(person); // {}
 // 프로퍼티 정의에 의한 프로퍼티 추가도 금지됨
 // Object.defineProperty(person, 'age', { value: 20 });
 // 타입에러 발생됨
+
+
+/**
+ * 16. 5. 2 객체 밀봉
+ * Object.seal 메서드는 개체를 밀봉함
+ * 객체 밀봉이란 프로퍼티 추가및 삭제외 프로퍼티 어트리뷰트 계정의 금지를 의미함
+ * 즉, 밀봉된 객체는 읽기 와 쓰기만 가능
+ * 밀봉된 객쳉ㄴ지 여부는 Object.isSealed메서드로 확인 가능
+ */
+
+// 16 - 11
+const person = { name: 'Lee' };
+//person 객체는 밀봉된 객체가 아님
+console.log(Object.isSealed(person)); // false
+
+// person 객체를 밀봉하여 프로퍼티 추가, 삭제, 재정의를 금지함
+Object.seal(person);
+
+//person 객체는 밀봉된 객체
+console.log(Object.isSealed(person)); // true
+
+
+// 밀봉된 객체는 configurable이 false다
+console.log(Object.getOwnPropertyDescriptors(person));
+
+// 프로퍼티 추가가 금지
+person.age = 20; // 무시 strict mode에서는 에러 발생
+console.log(person); // { name: "Lee" }
+
+//프로퍼티 삭제가 금지됨
+delete person.name; // 무시 strict mode에서는 에러 발생
+console.log(person); // { name: "Lee" }
+
+// 프로퍼티 값 갱신은 가능
+person.name = 'Kim';
+console.log(person); // { name: "Kim" }
+
+// 프로퍼티 어트리뷰트 재정의가 금지됨
+// Object.defineProperty(person, 'name', { configurable: true });   << 타입에러
+
+
+

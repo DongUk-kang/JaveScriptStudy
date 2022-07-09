@@ -109,3 +109,193 @@ console.log(Object.getOwnPropertyDescriptor(human, 'name'));;
  * 
  * */
 
+// 16 - 05
+const peple = {
+    name: 'Wook'
+};
+peple.age = 20;
+// 동적 생성
+
+console.log(Object.getOwnPropertyDescriptor(peple));
+
+//16.3.2 접근자 프로퍼티
+/**
+ * 접근자 프로퍼티는 자체적으로는 값을 갖지 않고 다른 데이터 프로퍼티의 값을읽거나 저장할때 사용하는 접근자 함수로 구성된 프로퍼티
+ * 
+ * 접근자 프로퍼티는 다음과 같은 프로퍼티 어트리뷰트를 갖음
+ * 
+ * [[Get]] , get 
+ * 설명: 접근자 프로퍼트를 통해 데이터 프로퍼티의 값을 읽을때 호출되는 접근자함수
+ * 즉, 접근자 프로퍼티 키로 프로퍼티 값에 접근하면 프로퍼티 어트리뷰트[[Get]]의 값, 즉 getter 함수가 호출되고 그결과가 프로퍼티값으로 반환됨
+ * 
+ * 
+ * [[Set]], set
+ * 설명: 접근자프로퍼티를 통해 데이터 프로퍼티의 값을 저장할때 호출되는 접근자 함수
+ * 접근자 프로퍼티 키로 프로퍼티 값을 저장하면 프로퍼티어트리뷰트[[Set]]의 값, 즉 setter 함수가 호출되고 그 결과가 프로퍼티값으로 저장됨
+ * 
+ * 
+ * [[Enumerable]], Enumerable 
+ * 데이터 프로퍼티의 [[Enumerable]] 동일
+ * 
+ * [[Configurable]], Configurable
+ * 데이터 프로퍼티의 [[Configurable]] 동일 
+ * 
+ * 접근자 함수는 getter/setter 함수라고도 부른다 
+ * 접근자 프로퍼터의 getter 와 setter 함수를 모두 정의할 수도 있고 하나만 정의 할 수도 있다
+ *  */
+
+// 16 - 06
+const persons = {
+    //데이터 프로퍼티
+    firstName: 'Dong Uk',
+    lastName: 'Kang',
+
+    //full Name은 접근자 함수로 구성된 접근자 프로퍼티임
+    //getter gkatn
+    get fullName() {
+        return `${this.firstName} ${this.lastName}`;
+    },
+    //setter 함수
+    set fullName(name) {
+        // 배열 디스트럭처 할당
+        [this.firstName, this.lastName] = name.split(' ');
+    }
+};
+
+//데이터 프로퍼티를 통한 포르퍼티 값의 참조
+console.log(persons.firstName + ' ' + persons.lastName); // Donguk Kang
+
+// 접근자 프로퍼티를 통한 프로퍼티 값의 저장
+// 접근자 프로퍼터 fullName에 값을 저장하면 setter 함수가 호출됨
+persons.fullName = 'hihi lee';
+console.log(persons);
+
+// 접근자 프로퍼티를 통한 프로퍼티 값의 참조
+// 접근자 프로퍼티 fullName에 접근하면 getter 함수가 호출됨
+console.log(persons.fullName); 
+
+// first Name은 데이터 프로퍼티임
+//데이터 프로퍼티는 [[Value]] , [[Writable]], [[Enumerable]], [[Configurable]]
+// 프로퍼티 어트리뷰트를 갖음
+let descriptor = Object.getOwnPropertyDescriptor(persons, 'firstName');
+
+// fullName은 접근자 프로퍼티
+// 접근자 프로퍼티는 [[Get]], [[Set]], [[Enumerable]], [[Configurable]]
+descriptor = Object.getOwnPropertyDescriptor(persons, 'fullName');
+
+/**
+ * persons 객체의 firstName과 lastName 프로퍼티는 일반적인 데이터 프로퍼티다
+ * 메서드 앞에 get, set이 붙은 메서드가 있는데 이것들이 바로 getter와 setter함수이고 getter/setter 함수의 이름 fullName이 접근자 프로퍼티
+ * 
+ * 접근자 프로퍼티는 자체적으로값을 가지지 않으며 다만 데이터 프로퍼티의 값을 읽거나 저장할때 관여함
+ * 
+ * 이를 내부 슬롯/메서드 관점에서 설명하면 다음과 같음
+ * 접근자 프로퍼티 fullName으로 프로퍼티 값에 접근하면 내부적으로[[Get]]내부 메서드가 호출되어 다음과 같이 동작함
+ * 
+ * 
+ * 1. 프로퍼티 키가 유효한지 확인한다. 프로퍼티 키는 문자열 또는 심벌이여함 프로퍼티키 "fullName"은 문자열이므로 유효한 프로퍼티 키
+ * 
+ * 2. 프로토타입 체인에서 프로퍼티를 검색한다 persons 객체에 fullName프로퍼티가 존재함
+ * 
+ * 3.  검색된 fullName 프로퍼티가 데이터 프로퍼티인지 접근자 프로퍼티인지 확인 fullName 프로퍼티는 접근자 프로퍼티임
+ * 
+ * 4.  접근자 프로퍼티 fullName의 프로퍼티 어트리튜브[[Get]]의 값 즉 getter 함수를 호출하여 그결과를 반환함
+ * 프로퍼티 fullName의 프로퍼티 어트리뷰트 [[Get]]의 값은 Object.getOwnPropertyDescriptor 메서드가 반환하는 프로퍼티 디스크립터 객체의 get 프로퍼티 갑과 같음
+ * 
+ * 프로토타입
+ * 프로토타입은 어떤 객체의 상위 객체의 역할을 하는 객체임
+ * 프로토타입은 하위 객체에게 자신의 프로퍼티와 메서드를 상속함
+ * 프로토 타입 객체의 프로토타입 객체의 프로퍼티나 메서드를 상속받은 하위 객체는 자신의 프로퍼티 또는 메서드인 것처럼 자유롭게 사용할수 있음
+ * 프로퍼트 체인은 프로토타입이 단방향 링크드 리스트 형대로 연결되어 있는 상속 구조를 말함
+ * 객체의 프로퍼티나 메서드에 접근하려고 할 때 해당 객체에 접근하려는 프로퍼티 또는 메스다가 없다면 프로토타입 체인을 따라 프로토타입의 프로퍼티나 메서드를 차례대로 검색한다.
+ */
+
+// 접근자 프로퍼티와 데이터 프로퍼티를 구별하는 방법
+// 16 - 07
+//일반 객체의 --proty--는 접근자 프로퍼티
+Object.getOwnPropertyDescriptor(Object.prototype, '__proto__');
+
+//함수 객체의 protytype은 데이터 프로퍼티
+Object.getOwnPropertyDescriptor(function() {}, 'prototype');
+/**
+ * 접근자 프로퍼티와 데이터 프로퍼티의 프로퍼티 디스크립터 객체의 포르퍼티가 다른것을 확인가능
+ */
+
+
+//16.4 프로퍼티 정의
+/**
+ * 프로펕티 정의란 새로운 프로퍼티를 추가하면서 프로퍼티 어트리뷰트를 명시적으로 정의하거나, 기존 프로퍼티의 프로퍼티 어트리뷰트를 재정의 하는 것을 말함
+ * 
+ * 예를 들어 프로퍼타 값을 갱신 가능하도록 할 것인지, 프로퍼티를 열거 가능하도록 할것인지, 프로퍼티를 재정의 가능하도록 할것인지 정의 할 수 있다.
+ * 이를 통해 객체의 프로퍼티가 어떻케 동작해야 하는지를 명확히 정의가능
+ * 
+ * Object.defineProperty 메서드를 사용하면 프로터의 어트리뷰트를 정의할수 있음
+ * 인수로는 객체의 참조와 데이터 프로퍼티의 키인 문자열, 프로퍼티 디스크립터 객체를 전달함
+ */
+
+
+// 16 - 08
+const person = {};
+
+Object.defineProperty(person, 'firstName', {
+    value: 'Ungmo',
+    writable: true,
+    enumerable: true,
+    configurable: true
+});
+
+Object.defineProperty(person, 'lastName', {
+    value: 'Lee'
+})
+
+let descriptors = Object.getOwnPropertyDescriptor(person, 'firstName');
+console.log('firstName', descriptors);
+
+// 디스크립터 객체의 프로퍼티를 누락시키면 undefined, false가 기본값
+descriptors = Object.getOwnPropertyDescriptor(person, 'lastName');
+
+//[[Enumerable]]의 값이 false인 경우
+// 해당 프로퍼티는 for ... in문이나 Object.keys 등으로 열거 할수 없음
+//lastName 프로퍼티는 [[Enumerable]]의 값이 false이므로 열거되지 않음
+console.log(Object.keys(person));
+
+/**
+ * [[Writable]]의 값이 false인 경우 해당 프로퍼티를 삭제할 수 없음
+ * lastName 프로퍼티는 [[Configurable]]의 값이 false이므로 값을 변경할수 없음
+ * // 이때 프로퍼티를 삭제하면 에러는 발생하지 않고 무시함
+ */
+person.lastName = 'KIm';
+
+//[[Confugurable]]의 값이 false인 경우 해당 프로퍼티를 삭제할 수 없음
+// lastName 프로퍼티는 [[Confugurable]]의 값이 false이므로 삭제할 수 없음
+// 이때 프로퍼티를 삭제하면 에러는 발생하지 않고 무시됨
+delete person.lastName;
+
+//[[Configurable]]의 값이 false인 경우 해당 프로퍼티를 재정의 할 수 없음
+//Object.defineProperty(person, 'lastName', { enumerable: true });
+
+descriptors = Object.getOwnPropertyDescriptor(person, 'lastName');
+console.log('lastName', descriptor);
+
+//접근자 프로퍼티 정의
+Object.defineProperty(person, 'fullName', {
+    //getter 함수
+    get() {
+        return `${this.firstName} ${this.lastName}`;
+    },
+    //set함수
+    set(name) {
+        [this.firstName, this.lastName] = name.split(' ');
+    },
+    enumerable: true,
+    configurable: true
+});
+descriptors = Object.getOwnPropertyDescriptor(person, 'fullName');
+console.log('fullName', descriptors);
+
+person.firstName = 'Heegun Leee';
+console.log(person);
+
+//Object.defineProperty 메서드로 프로퍼티를 정의할때 프로퍼티 디스크립터 객체의 프로퍼티를 일부 생략가능
+// 프로퍼티 디스크립터 객체에서 생략된 어트리뷰트는 다음과 같이 기본값 제공됨
+

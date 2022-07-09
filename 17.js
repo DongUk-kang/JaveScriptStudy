@@ -581,3 +581,31 @@ console.log(circle.getDiameter()); // 10
 /**
  * new 연산자와 함꼐 생성자 함수에 의해 생성된 객체는 프로포타입에 의해 생성자 함수와 연결된다
  */
+
+// 17 - 21
+let obj2 = new Object();
+console.log(obj2);
+
+obj2 = Object();
+console.log(obj2);
+
+let f = new Function('x', 'return x ** x');
+console.log(f);
+
+f = Function('x', 'return x ** x');
+console.log(f);
+
+/**
+ * String, Number, Boolean 생성자 함수는 new 연산자와 함께 호출했을때 String, Number, Boolean 객체를 생성하여 반환하지만
+ * new 연산자 없이 호출하면 문자열, 숫자, 불리언 값으로 반환됨
+ */
+
+// 17 - 22
+const str = String(123);
+console.log(str, typeof str); // 123 string
+
+const num = Number('123');
+console.log(num, typeof num);
+
+const bool = Boolean('true')
+console.log(bool, typeof bool);

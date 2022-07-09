@@ -495,3 +495,29 @@ console.log(insts);
  * 다시말해 함수객체의 내부 메서드[[Construct]]가 호출되는것이 아니라 [[Call]]이 호출된다
  */
 
+// 17= 18
+
+//생성자 함수
+function Circle(radius) {
+    this.radius = radius;
+    this.getDiameter = function () {
+        return 2 * this.radius;
+    };
+}
+
+// new 연산자 없이 생성자 함수 호출하면 일반 함수로서 호출됨
+const circle10 = Circle(5);
+console.log(circle10); // undefined
+
+//일반 함수 내부의 this는 전역 객체 window를 가르킴
+console.log(radius); // 5
+console.log(getDiameter()); // 10
+
+circle10.getDiameter(); // 타입에러
+
+/**
+ * Criclr 함수를 가르키는 new 연산자와 함께 생성자 함수로서 호출하면 함수 내부의
+ * this는 Circle 생성자 함수가 생성할 인스턴스를 가르킴
+ * 하지만 Circle 함수를 일반적인 함수로서 호출하면 함수 내부의 this는 전역객체 window를 가르킴
+ */
+

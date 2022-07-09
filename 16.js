@@ -419,4 +419,44 @@ console.log(person); // { name: "Kim" }
 // Object.defineProperty(person, 'name', { configurable: true });   << 타입에러
 
 
+// 16.5.3 객체 동결
+/**
+ * Object.freeze 메서드는 객체를 동결함
+ * 객체 동결이란 프로퍼티 추가 및 삭제와 프로퍼티 어트리뷰트 재정의 금지, 프로퍼티 값 갱신 금지를 의마함
+ * 즉, 동결된 객체는 읽기만 가능
+ * 동결된 객체인지 여부는 Object.isFrozen 메서드로 확인할 수 있다.
+ */
+
+// 16 - 12
+const person = { name: 'Lee' };
+
+// person 객체는 동결된 객체가 아니다.
+console.log(Object.isFrozen(person)); // false
+
+//person 객체를 동결하여 프로퍼티 추가, 삭제, 재정의, 쓰기를 금지
+Object.freeze(person);
+
+//person 객체는 동결된 객체
+console.log(Object.isFrozen(person)); // true
+
+//동결 된 객체는 writable 과 configurable이 false다
+console.log(Object.getOwnPropertyDescriptors(person));
+
+//프로퍼티 추가가 금지됨
+person.age = 20; // 무시 strict mode에서는 에러남
+console.log(person); 
+
+
+// 프로퍼티 삭제가 금지됨
+delete person.name; // 무시 strict mode에서는 에러
+console.log(person); 
+
+//프로퍼티 값 갱신이 금지
+person.name = "Kim"; // 무시 strict mode에서는 에러
+console.log(person);
+
+//프로퍼티 어트리뷰트 재정의가 금지됨
+Object.defineProperty(person, 'name', { configurable: true });
+// 타입에러
+
 

@@ -318,3 +318,15 @@ function Person(name) {
 //me 객체를 생성한 생성자함수는 Person이다.
 const me2 = new Person("Kiem");
 console.log(me.constructor === Person); // true
+
+//19 - 17
+// obj 객체는 Object 생성자 함수로 생성한 객체가 아니라 객체 리터럴로 생성함
+const obj5 = {};
+
+// obj5 객체의 생성자 함수는 Object 생성자 함수.
+console.log(obj5.constructor === Object); // true
+
+/**
+ * obj객체는 Object 생성자 함수로 생성한 객체가 아니라 객체 리터럴에 의해 생성된 객체
+ * 하지만 obj5 객체는 Object 생성자 함수와 constructor 프로퍼티로 연결되어있음
+ */

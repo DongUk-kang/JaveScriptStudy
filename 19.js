@@ -149,3 +149,132 @@ const circle4 = new Circle(4);
 console.log(circle3.getArea === circle4.getArea); // true
 console.log(circle3.getArea());
 console.log(circle4.getArea());
+
+/**
+ * Circle 생성자 함수가 생성한 모든 인스턴스는 자신의 프로토타입, 즉 상위 객체 역할을 하는 Circle prototyp의 모든 프로퍼티와 메서드를 상속함
+ *
+ * getArea 메서드는 단 하나만 생성되어 프로토타입인 Circle.prototype의 메서드로 할당되어 있음
+ * 따라서 Circle 생성자 함수가 생성하는 모든 인스턴스는 getArea 메서드를 상속받아 사용 할 수 있음
+ *
+ * 즉, 자신의 상태를 나타내는 radius 프로퍼티만 개별적으로 소유하고 내용이 동일한 메서드는 상속을 통해 공유하여 사용하느것
+ *
+ * 상속은 코드의 재사용이란 관점에서 매우 유용함
+ * 생성자 함수가 생성할 모든 인스턴스가 공통적으로 사용할 프로퍼티나 메서드를 프로토타입에 미리 구현해 두면 생성자 함수가 생성할 모든 인스턴스는 별도의 구현없이
+ * 상위 객체인 프로토타입의 자산을 공유하여 사용함
+ */
+
+/**
+ * 19.3 프로토타입 객체
+ *
+ * 프로토타입 객체란 객체지향 프로그래밍의 근간을 이루는 객체 간 상속을 구현하기 위해 사용됨
+ *
+ * 프로토타입은 어떤 객체의 상위 객체의 역할을 하는 객체로서 다른객체에
+ * 공유 프로퍼티를 제공한다.
+ * 프로토타입을 상속받은 하위 객체는 상위 객체는 상위 객체의 프로퍼티를 자신의 프로퍼티처럼 자유롭게 사용할 수 있음
+ *
+ * 모든객체는 [[Prototype]]이라는 내부 슬롯을 가지며, 이 내부 슬롯의 값은 프로토타입의 참조다
+ *
+ * [[Prototype]]에 저장되는 프로토타입은 객체 생성 방식에 의해 결정됨
+ * 객체가 생성될때 객체 생성에 따라 프로토타입이 결정되고 [[Prototype]]에 저장됨
+ *
+ * 객체 리터럴에 의해 생성된 객체의 프로토타입은 Object.prototype이고 생성자 함수에 의해
+ * 생성된 객체의 프로토타입은 생성자 함수의 prototype 프로퍼티에 바인딩되어 있는 객체
+ *
+ * 모든 객체는 하나의 프로토타입을 갖음
+ * 모든 프로토타입은 생성자 함수와 연결되어있음
+ *
+ */
+
+/**
+ * 19.3.1 __proto__ 접근자 프로퍼티ㅣ
+ *
+ * 모든 객체는 __proto__ 접근자 프로퍼티를 통해 자신의 프로토타입, 즉[[Prototype]] 내부 슬롯에 간접적으로 접근할 수 있음
+ */
+
+// 19 - 05
+const person1 = { name: "Kim" };
+
+//19 - 06
+const obj = {};
+const parent = { x: 1 };
+
+// getter 함수인 get __proto__ 가 호출되어 obj객체 프로토타입을 취득
+obj.__proto__;
+
+// setter 함수인 set __proto__가 호출되어 obj 객체의 프로토타입을 교체
+obj.__proto__ = parent;
+
+console.log(obj.x); // 1
+
+// 19 - 07
+const person5 = { name: "Kang" };
+
+//person 객체는 __proto__ 프로퍼티를 소유하지 않음
+console.log(person.hasOwnProperty("__proto")); // false
+
+// __proto__ 프로퍼티는 모든 객체의 프로토타입 객체인 object.prototype의 접근자 프로퍼티다.
+console.log(Object.getOwnPropertyDescriptor(Object.prototype, "__proto__"));
+
+// 모든 객체는 Object.prototype의 접근자 프로퍼티 __proto__를 상속받아 사용할 수 있음
+console.log({}.__proto__ === Object.prototype); //
+
+// 19 - 08
+const parent1 = {};
+const child = {};
+
+// child의 프로토타입을 parent로 설정
+child.__proto__ = parent1;
+// parent의 프로토타입을 child로 설정
+// parent1.__proto__ = child;
+
+// 19 - 09
+//obj는 프로토타입 체인의 종점이다.
+const obj2 = Object.create(null);
+
+//obj2 Object.__proto__를 상속받을 수 없다
+console.log(obj2.__proto__);
+
+// 따라서 __proto__보다 Object.getPrototypeOF 메서드를 사용하는 편이 좋다.
+console.log(Object.getPrototypeOf(obj)); // null
+
+//19 . 3. 2 함수객체의 prototype 프로퍼티
+
+//함수객체는 prototype 프로퍼티를 소유함
+(function () {}.hasOwnProperty("prototype")); // true
+
+//일반객체 prototype 프로퍼티를 소유하지 않느다
+({}.hasOwnProperty("prototype"));
+
+/**
+ * prototype 프로퍼티는 생성자 함수가 생성할 객체(인스턴스)의 프로토타입을 가리킴
+ *
+ * 따라서 생성자 함수로서 호출할수 없는 함수, 즉 non-constructor인 화살표 함수와 ES6 메서드 축약 표현으로 정의한 메서드는
+ * prototype 프로퍼티를 소유하지 않으며 프로토타입도 생성하지 않음
+ */
+
+// 19 - 12
+
+// 화살표 함수는 non-constructor다
+
+const Person = (name) => {
+  this.name = name;
+};
+
+// non - construcrtor 는 prototype 프로퍼티를 소유하지않음
+console.log(Person.hasOwnProperty("prototype"));
+
+// non - constructor 는 프로토타입을 생성하지 않는다.
+console.log(Person.prototype);
+
+//es6의 메서드 축약 표혀능로 정의한 메서드는 non-constructorek
+const obj3 = {
+  foo() {},
+};
+
+console.log(obj.foo.hasOwnProperty("prototype")); // false
+console.log(obj.foo.prototype);
+
+/**
+ * 생성자 함수로 호출하기 위해 정의하지 않은 일반함수(함수선언문, 함수 표현식)도 prototype 프로퍼티를
+ * 소유하지만 객체를 생성하지 않는 일반 함수의 prototype 프로퍼티는 아무런 의미가없음
+ */

@@ -288,3 +288,13 @@ function Person(name) {
 const me = new Person("Lee");
 
 console.log(Person.prototype === me.__proto__); // true
+
+// 19.3.3 프로토타입의 constructor 프로퍼티와 생성자 함수
+// 19 - 14
+
+function Person(name) {
+  this.name = name;
+}
+const me1 = new Person("Leee");
+//me1 객체의 생성자 함수는 Person
+console.log(me1.constructor === Person);

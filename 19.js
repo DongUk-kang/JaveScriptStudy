@@ -278,3 +278,13 @@ console.log(obj.foo.prototype);
  * 생성자 함수로 호출하기 위해 정의하지 않은 일반함수(함수선언문, 함수 표현식)도 prototype 프로퍼티를
  * 소유하지만 객체를 생성하지 않는 일반 함수의 prototype 프로퍼티는 아무런 의미가없음
  */
+
+// 19 - 13
+
+// 생성자 함수
+function Person(name) {
+  this.name = name;
+}
+const me = new Person("Lee");
+
+console.log(Person.prototype === me.__proto__); // true

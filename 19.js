@@ -330,3 +330,27 @@ console.log(obj5.constructor === Object); // true
  * obj객체는 Object 생성자 함수로 생성한 객체가 아니라 객체 리터럴에 의해 생성된 객체
  * 하지만 obj5 객체는 Object 생성자 함수와 constructor 프로퍼티로 연결되어있음
  */
+
+//19 - 18
+
+// 2. Object 생성자 함수에 의한 객체 생성
+// 인수가 전달되지 않았을때 추상 연산 OrdinaryObjectCreate를 호출하여 빈 객체를 생성
+
+let obj = new Object();
+console.log(obj); // {}
+
+/**
+ * 1. new.target이 undefined나 Object가 아닌 경우
+ * 인스턴스 > Foo.prototype > Object.prototype 순으로 프로토타입 체인이 생성된다
+ */
+class Foo extends Object {}
+new Foo(); // Foo {}
+
+// 3. 인수가 전달된 경우에는 인수를 객체로 변환
+// Number 객체 생성
+obj = new Object(123);
+console.log(obj); // Number {123}
+
+// String 객체 생성
+obj = new Object("123");
+console.log(obj); // String {'123'}

@@ -354,3 +354,19 @@ console.log(obj); // Number {123}
 // String 객체 생성
 obj = new Object("123");
 console.log(obj); // String {'123'}
+
+// 19 - 19
+
+// foo 함수는 Function 생성자 함수로 생성한 함수 객체 아니라 함수선언문으로 생성함
+function foo() {}
+
+//하지만 constructor 프로퍼티를 통해 확인해보면 함수 foo의 생성자 함수는 려ㅜ생성자 함수
+console.log(foo.constructor === Function); // true
+
+/**
+ * 리터럴 표기법에 의해 생성된 객체도 상속을 위해 프로토 타입이 필요함
+ * 따라서 리터럴 표기법에 의해 생성된 객체도 가상적인 생성자 함수를 가지고 있음
+ *
+ * 프로토 타입은 생성자 함수와 더불어 생성되며 prototype,constructor 프로퍼티의 의해 연결되어있기 때문
+ * 프로토타입과 생성자 함수는 단독으로 존재할수 없고 언제나 pair로 존재함
+ */
